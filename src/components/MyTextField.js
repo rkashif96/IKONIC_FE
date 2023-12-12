@@ -1,7 +1,6 @@
-// TextField.js
 import React from 'react';
 
-const CustomTextField = ({ label, type, placeholder, name, onChange }) => (
+const MyTextField = ({ label, type, placeholder, name, onChange }) => (
   <div className="mb-3">
     <label htmlFor={name} className="form-label">
       {label}
@@ -17,4 +16,4 @@ const CustomTextField = ({ label, type, placeholder, name, onChange }) => (
   </div>
 );
 
-export default CustomTextField;
+export default MyTextField;

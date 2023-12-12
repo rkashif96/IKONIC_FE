@@ -1,9 +1,14 @@
 // Login.js
 import React, { useState } from 'react';
-import LoginTextField from './LoginTextField';
-import LoginButton from './LoginButton';
+import MyTextField from '../components/MyTextField';
+import MyButton from '../components/MyButton';
+import axios from '../utils/axios'
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = (props) => {
+
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -18,7 +23,12 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your login logic here
+    axios.post('/user/login',formData).then(res=>{
+      console.log(res.data.data.accessToken,'token')
+      localStorage.setItem('isLogIn',true)
+      localStorage.setItem('token',res.data.data.accessToken)
+      navigate('/')
+    })
     console.log('Submitted:', formData);
   };
 
@@ -29,7 +39,7 @@ const Login = () => {
           <form onSubmit={handleSubmit}>
             <h1 className="mb-4">Log In</h1>
 
-            <LoginTextField
+            <MyTextField
               label="Email Address"
               type="email"
               placeholder="Enter your email"
@@ -37,7 +47,7 @@ const Login = () => {
               onChange={handleChange}
             />
 
-            <LoginTextField
+            <MyTextField
               label="Password"
               type="password"
               placeholder="Enter your password"
@@ -45,7 +55,7 @@ const Login = () => {
               onChange={handleChange}
             />
 
-            <LoginButton type="submit" text="Log In" className="btn-primary mt-3" />
+            <MyButton type="submit" text="Log In" className="btn-primary mt-3" />
           </form>
         </div>
       </div>

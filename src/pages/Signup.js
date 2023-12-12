@@ -1,8 +1,8 @@
 // Signup.js
 import React, { useState } from 'react';
-import CustomTextField from './TextField';
-import CustomButton from './Button';
-
+import MyTextField from '../components/MyTextField';
+import MyButton from '../components/MyButton';
+import axios from '../utils/axios'
 const Signup = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -19,7 +19,9 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your signup logic here
+    axios.post('/user/register',formData).then(res=>{
+      console.log(res)
+    })
     console.log('Submitted:', formData);
   };
 
@@ -30,7 +32,7 @@ const Signup = () => {
           <form onSubmit={handleSubmit}>
             <h1 className="mb-4">Sign Up</h1>
 
-            <CustomTextField
+            <MyTextField
               label="Name"
               type="text"
               placeholder="Enter your name"
@@ -38,7 +40,7 @@ const Signup = () => {
               onChange={handleChange}
             />
 
-            <CustomTextField
+            <MyTextField
               label="Email Address"
               type="email"
               placeholder="Enter your email"
@@ -46,7 +48,7 @@ const Signup = () => {
               onChange={handleChange}
             />
 
-            <CustomTextField
+            <MyTextField
               label="Password"
               type="password"
               placeholder="Enter your password"
@@ -54,7 +56,7 @@ const Signup = () => {
               onChange={handleChange}
             />
 
-            <CustomButton type="submit" text="Sign Up" className="btn-primary mt-3" />
+            <MyButton type="submit" text="Sign Up" className="btn-primary mt-3" />
           </form>
         </div>
       </div>
